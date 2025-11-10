@@ -1,59 +1,61 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import Home from './Home';
+import About from './About';
+import Contact from './Contact';
+import './App.css';
 
-const Home = () => {
-  return (
-    <div>
-      <h1>Home Page</h1>
-      <p>Welcome to our website!</p>
-    </div>
-  );
-};
+// ScrollToTop component to handle scroll behavior
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-const About = () => {
-  return (
-    <div>
-      <h1>About Page</h1>
-      <p>Learn more about us here.</p>
-    </div>
-  );
-};
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-const Contact = () => {
-  return (
-    <div>
-      <h1>Contact Page</h1>
-      <p>Get in touch with us!</p>
-    </div>
-  );
-};
+  return null;
+}
 
 function App() {
   return (
     <Router>
-      <div>
+      <ScrollToTop />
+      <div className="app-container">
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
-          </ul>
+          <div className="nav-content">
+            <div className="nav-brand">
+              <Link to="/">YourLogo</Link>
+            </div>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact</Link>
+              </li>
+            </ul>
+          </div>
         </nav>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+
+        <footer>
+          <div className="footer-content">
+            <p>&copy; 2025 Your Website. All rights reserved.</p>
+          </div>
+        </footer>
       </div>
     </Router>
   );
 }
 
-export default App
+export default App;;
